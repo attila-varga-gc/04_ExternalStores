@@ -10,9 +10,14 @@
     "@types/node": "^12.20.37",
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
+    "@types/react-test-renderer": "^17.0.1",
+    "@viperhq/react-test-tools": "^1.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "react-test-renderer": "^17.0.2",
     "typescript": "^4.4.4",
     "web-vitals": "^1.1.2"
   },
@@ -20,7 +25,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint . --max-warnings 0",
+    "prettier": "prettier --write .",
+    "coverage": "CI=1 npm test -- --coverage",
+    "check-prettier": "prettier --list-different .",
+    "check-types": "tsc --noemit",
+    "ci": "npm-run-all check-types check-prettier eslint coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +50,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^7.0.2"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }

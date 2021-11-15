@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should test against the snapshot 1`] = `
+<div>
+  <div>
+    <div>
+      Test
+    </div>
+    <div>
+      12 likes
+    </div>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Like
+    </button>
+  </div>
+</div>
+`;

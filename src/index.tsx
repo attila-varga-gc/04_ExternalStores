@@ -1,17 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+/* istanbul ignore file */
+import React from "react";
+import { render } from "react-dom";
+import { API } from "./api";
 
-ReactDOM.render(
+import { Comments } from "./comments/Comments";
+import { useCommentsModel } from "./comments/useCommentsModel";
+import { useCommentsViewModel } from "./comments/useCommentsViewModel";
+
+function ViewComponent({ api }: { api: API }) {
+  const commentsModel = useCommentsModel({
+    api,
+  });
+  const commentsViewModel = useCommentsViewModel(commentsModel);
+  return <Comments {...commentsViewModel} />;
+}
+
+render(
   <React.StrictMode>
-    <App />
+    <ViewComponent
+      api={{
+        fetchComments: async () => [
+          {
+            id: 0,
+            message: "Lorem ipsum",
+            likes: 2,
+          },
+          {
+            id: 1,
+            message: "Dolor sit amet",
+            likes: 3,
+          },
+        ],
+        addLike: async () => void 0,
+      }}
+    />
+    ,
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

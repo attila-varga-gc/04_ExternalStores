@@ -21,6 +21,7 @@ it("should test fetching", async () => {
 });
 
 it("should test addLike", async () => {
+  comment.likes = 1;
   const props = Mocked<CommentsModelProps>({
     api: {
       fetchComments: () => [comment],
@@ -32,4 +33,5 @@ it("should test addLike", async () => {
   await act(() => hook.result.current.addLike(comment.id));
   expect(props.api.addLike).toBeCalledTimes(1);
   expect(props.api.addLike).toBeCalledWith(comment.id);
+  expect(comment.likes).toStrictEqual(2);
 });

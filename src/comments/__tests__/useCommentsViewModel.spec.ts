@@ -2,11 +2,11 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import { CommentModel, CommentsModel } from "../useCommentsModel";
 import { useCommentsViewModel } from "../useCommentsViewModel";
 
-const comment = Mocked<CommentModel>({
+const comment: CommentModel = {
   id: 42,
   likes: 42,
   message: "42",
-});
+};
 
 it("should test the transformation", async () => {
   const model = Mocked<CommentsModel>({

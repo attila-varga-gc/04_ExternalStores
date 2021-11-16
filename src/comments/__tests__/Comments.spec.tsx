@@ -3,7 +3,7 @@ import { Comments } from "../Comments";
 import { CommentsViewModel } from "../useCommentsViewModel";
 
 it("should test against the snapshot", () => {
-  const model = Mocked<CommentsViewModel>({
+  const model: CommentsViewModel = {
     comments: [
       {
         id: 42,
@@ -12,7 +12,7 @@ it("should test against the snapshot", () => {
       },
     ],
     like: jest.fn(),
-  });
+  };
   expect(Renderer.create(<Comments {...model} />).toJSON()).toMatchSnapshot();
 });
 

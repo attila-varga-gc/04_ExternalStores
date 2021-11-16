@@ -8,7 +8,7 @@ const comment = Mocked<CommentModel>({
   message: "42",
 });
 
-it("should test fetching", async () => {
+it("should test the transformation", async () => {
   const model = Mocked<CommentsModel>({
     comments: [comment],
   });

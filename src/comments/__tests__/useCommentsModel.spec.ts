@@ -9,7 +9,7 @@ const comment = Mocked<CommentModel>({
   id: 42,
 });
 
-it("should test fetching", async () => {
+it("should test fetching comments from the API", async () => {
   const props = Mocked<CommentsModelProps>({
     api: {
       fetchComments: () => [comment],

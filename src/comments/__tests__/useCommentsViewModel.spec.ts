@@ -22,7 +22,7 @@ it("should test the transformation", async () => {
   `);
 });
 
-it("should test like", async () => {
+it("should add a single like to the right comment", async () => {
   const model = Mocked<CommentsModel>({
     comments: [comment],
     addLike: jest.fn(),

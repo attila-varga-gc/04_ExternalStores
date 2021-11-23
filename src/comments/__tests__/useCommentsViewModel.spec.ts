@@ -8,7 +8,7 @@ const comment: CommentModel = {
   message: "42",
 };
 
-it("should test the transformation", async () => {
+it("should convert the comment into UI presentable parts", async () => {
   const model = Mocked<CommentsModel>({
     comments: [comment],
   });

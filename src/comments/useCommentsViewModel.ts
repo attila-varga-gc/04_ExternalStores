@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useMemo, useCallback } from "react";
 import { CommentsModel } from "./useCommentsModel";
 
 export type CommentViewModel = {
@@ -7,11 +7,11 @@ export type CommentViewModel = {
   likes: string;
 };
 
-export type CommentsViewModelState = {
+export type CommentsViewModelCalculated = {
   comments: CommentViewModel[];
 };
 
-export type CommentsViewModel = CommentsViewModelState & {
+export type CommentsViewModel = CommentsViewModelCalculated & {
   like: (comment: CommentViewModel) => Promise<void>;
 };
 
@@ -19,18 +19,13 @@ export function useCommentsViewModel({
   comments,
   addLike,
 }: CommentsModel): CommentsViewModel {
-  const [viewModel, setViewModel] = useState<CommentsViewModelState>({
-    comments: [],
-  });
-  useEffect(
-    () =>
-      setViewModel((viewModel) => ({
-        ...viewModel,
-        comments: comments.map(({ likes, ...comment }) => ({
-          ...comment,
-          likes: `${likes} likes`,
-        })),
+  const viewModel = useMemo<CommentsViewModelCalculated>(
+    () => ({
+      comments: comments.map((comment) => ({
+        ...comment,
+        likes: `${comment.likes} likes`,
       })),
+    }),
     [comments]
   );
   const like = useCallback(

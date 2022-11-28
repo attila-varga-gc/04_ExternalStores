@@ -16,13 +16,13 @@ it("should test against the snapshot", () => {
   expect(Renderer.create(<Comments {...model} />).toJSON()).toMatchSnapshot();
 });
 
-it("should test the click event", () => {
+it("should test the click event", async () => {
   const model = Mocked<CommentsViewModel>({
     comments: [{ id: 1 }],
     like: jest.fn(),
   });
   const tree = Renderer.create(<Comments {...model} />);
-  tree.root.findByType("button").props.onClick();
+  (await tree.root.findByType("button")).props.onClick();
   expect(model.like).toHaveBeenCalledTimes(1);
   expect(model.like).lastCalledWith(model.comments[0]);
 });

@@ -30,7 +30,7 @@ export function useCommentsModel({ api }: CommentsModelProps): CommentsModel {
     fetch();
   }, [api]);
   const addLike = useCallback(
-    async (id) => {
+    async (id: number) => {
       await api.addLike(id);
       const commentModel = model.comments.find((comment) => comment.id === id);
       commentModel!.likes += 1;

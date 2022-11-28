@@ -1,34 +1,35 @@
 {
-  "name": "comments-demo-app",
-  "version": "0.1.0",
+  "name": "testing-react-hooks",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.37",
-    "@types/react": "^17.0.34",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-test-renderer": "^17.0.1",
-    "@viperhq/react-test-tools": "^1.0.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "react-test-renderer": "^17.0.2",
-    "typescript": "^4.4.4",
-    "web-vitals": "^1.1.2"
+    "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/react": "13.4.0",
+    "@testing-library/react-hooks": "8.0.1",
+    "@testing-library/user-event": "14.4.3",
+    "@types/jest": "29.2.3",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "@types/react-test-renderer": "18.0.0",
+    "@viperhq/react-test-tools": "1.0.0",
+    "cross-env": "^7.0.3",
+    "npm-run-all": "4.1.5",
+    "prettier": "2.8.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "5.0.1",
+    "react-test-renderer": "18.2.0",
+    "typescript": "4.9.3",
+    "web-vitals": "3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "eslint": "eslint . --max-warnings 0",
     "prettier": "prettier --write .",
-    "coverage": "CI=1 npm test -- --coverage",
+    "coverage": "cross-env CI=1 npm test -- --coverage",
     "check-prettier": "prettier --list-different .",
     "check-types": "tsc --noemit",
     "ci": "npm-run-all check-types check-prettier eslint coverage"
@@ -50,9 +51,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/react-hooks": "^7.0.2"
   },
   "jest": {
     "coverageThreshold": {

@@ -15,9 +15,11 @@ it("should test fetching comments from the API", async () => {
       fetchComments: () => [comment],
     },
   });
-  const hook = renderHook(() => useCommentsModel(props));
-  await hook.waitForNextUpdate();
-  expect(hook.result.current.comments[0]).toEqual(comment);
+  const { waitForNextUpdate, result } = renderHook(() =>
+    useCommentsModel(props)
+  );
+  await waitForNextUpdate();
+  expect(result.current.comments[0]).toEqual(comment);
 });
 
 it("should test addLike", async () => {
@@ -28,9 +30,11 @@ it("should test addLike", async () => {
       addLike: jest.fn(),
     },
   });
-  const hook = renderHook(() => useCommentsModel(props));
-  await hook.waitForNextUpdate();
-  await act(() => hook.result.current.addLike(comment.id));
+  const { waitForNextUpdate, result } = renderHook(() =>
+    useCommentsModel(props)
+  );
+  await waitForNextUpdate();
+  await act(() => result.current.addLike(comment.id));
   expect(props.api.addLike).toBeCalledTimes(1);
   expect(props.api.addLike).toBeCalledWith(comment.id);
   expect(comment.likes).toStrictEqual(2);

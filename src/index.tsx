@@ -1,40 +1,34 @@
 /* istanbul ignore file */
+
 import React from "react";
-import { render } from "react-dom";
-import { API } from "./api";
+import ReactDom from "react-dom/client";
+import { GlobalScope } from "./model/GlobalScope";
+import { CommentsView } from "./view/comments/CommentsView";
 
-import { Comments } from "./comments/Comments";
-import { useCommentsModel } from "./comments/useCommentsModel";
-import { useCommentsViewModel } from "./comments/useCommentsViewModel";
+const root = ReactDom.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
-function ViewComponent({ api }: { api: API }) {
-  const commentsModel = useCommentsModel({
-    api,
-  });
-  const commentsViewModel = useCommentsViewModel(commentsModel);
-  return <Comments {...commentsViewModel} />;
-}
+const api = {
+  fetchComments: async () => [
+    {
+      id: 0,
+      message: "Lorem ipsum",
+      likes: 2,
+    },
+    {
+      id: 1,
+      message: "Dolor sit amet",
+      likes: 3,
+    },
+  ],
+  addLike: async () => void 0,
+};
 
-render(
+root.render(
   <React.StrictMode>
-    <ViewComponent
-      api={{
-        fetchComments: async () => [
-          {
-            id: 0,
-            message: "Lorem ipsum",
-            likes: 2,
-          },
-          {
-            id: 1,
-            message: "Dolor sit amet",
-            likes: 3,
-          },
-        ],
-        addLike: async () => void 0,
-      }}
-    />
-    ,
-  </React.StrictMode>,
-  document.getElementById("root")
+    <GlobalScope api={api}>
+      <CommentsView />
+    </GlobalScope>
+  </React.StrictMode>
 );

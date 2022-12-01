@@ -1,19 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { API } from "../api";
-
-export type CommentModel = {
-  id: number;
-  likes: number;
-  message: string;
-};
-
-export type CommentsModelState = {
-  comments: CommentModel[];
-};
-
-export type CommentsModel = CommentsModelState & {
-  addLike: (id: number) => Promise<void>;
-};
+import { API } from "../../api";
+import { CommentsModelState, CommentsModel } from "./CommentsModel";
 
 export type CommentsModelProps = {
   api: API;

@@ -1,4 +1,4 @@
-import { CommentModel } from "./comments/useCommentsModel";
+import { CommentModel } from "./model/comments/CommentsModel";
 
 export type API = {
   fetchComments: () => Promise<CommentModel[]>;

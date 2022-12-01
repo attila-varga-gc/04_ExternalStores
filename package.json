@@ -38,7 +38,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-redeclare": 0
+    }
   },
   "browserslist": {
     "production": [

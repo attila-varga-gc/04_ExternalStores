@@ -1,5 +1,8 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import { CommentModel, CommentsModel } from "../useCommentsModel";
+import {
+  CommentModel,
+  CommentsModel,
+} from "../../../model/comments/CommentsModel";
 import { useCommentsViewModel } from "../useCommentsViewModel";
 
 const comment: CommentModel = {

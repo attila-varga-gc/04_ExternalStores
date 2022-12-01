@@ -1,9 +1,6 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import {
-  CommentModel,
-  CommentsModelProps,
-  useCommentsModel,
-} from "../useCommentsModel";
+import { CommentModel } from "../CommentsModel";
+import { useCommentsModel, CommentsModelProps } from "../useCommentsModel";
 
 const comment = Mocked<CommentModel>({
   id: 42,

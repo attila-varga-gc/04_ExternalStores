@@ -13,7 +13,25 @@ it("should test against the snapshot", () => {
     ],
     like: jest.fn(),
   };
-  expect(Renderer.create(<Comments {...model} />).toJSON()).toMatchSnapshot();
+  expect(Renderer.create(<Comments {...model} />).toJSON())
+    .toMatchInlineSnapshot(`
+    <div>
+      <div>
+        <div>
+          Test
+        </div>
+        <div>
+          12 likes
+        </div>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Like
+        </button>
+      </div>
+    </div>
+  `);
 });
 
 it("should test the click event", async () => {

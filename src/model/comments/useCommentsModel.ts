@@ -1,12 +1,21 @@
-import { useState, useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { API } from "../../api";
 import { CommentsModelState, CommentsModel } from "./CommentsModel";
+import { useRxState } from "../useRxState";
+import { RxModel } from "../useModel";
 
 export type CommentsModelProps = {
   api: API;
 };
-export function useCommentsModel({ api }: CommentsModelProps): CommentsModel {
-  const [model, setModel] = useState<CommentsModelState>({
+
+export function useCommentsModel({
+  api,
+}: CommentsModelProps): RxModel<CommentsModel, CommentsModelState> {
+  const {
+    getState: getModel,
+    setState: setModel,
+    $subject,
+  } = useRxState<CommentsModelState>({
     comments: [],
   });
   useEffect(() => {
@@ -15,21 +24,20 @@ export function useCommentsModel({ api }: CommentsModelProps): CommentsModel {
       setModel((model) => ({ ...model, comments }));
     }
     fetch();
-  }, [api]);
+  }, [api, setModel]);
   const addLike = useCallback(
     async (id: number) => {
       await api.addLike(id);
-      const commentModel = model.comments.find((comment) => comment.id === id);
+      const commentModel = getModel().comments.find(
+        (comment) => comment.id === id
+      );
       commentModel!.likes += 1;
-      setModel((model) => ({
-        ...model,
-        comments: [...model.comments],
-      }));
+      setModel((model) => ({ ...model, comments: [...model.comments] }));
     },
-    [model, api]
+    [api, getModel, setModel]
   );
   return {
-    ...model,
+    $subject,
     addLike,
   };
 }

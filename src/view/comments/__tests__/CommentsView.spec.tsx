@@ -3,15 +3,19 @@ import * as Renderer from "react-test-renderer";
 import { GlobalScopeContext } from "../../../model/GlobalScope";
 import { CommentsView } from "../CommentsView";
 import { CommentsModel } from "../../../model/comments/CommentsModel";
+import { RxModel } from "../../../model/useModel";
+import { createState } from "../../../model/useRxState";
 
-const commentModelMock = Mocked<CommentsModel>({
-  comments: [
-    {
-      id: 1,
-      likes: 1,
-      message: "a",
-    },
-  ],
+const commentModelMock = Mocked<RxModel<CommentsModel>>({
+  ...createState({
+    comments: [
+      {
+        id: 1,
+        likes: 1,
+        message: "a",
+      },
+    ],
+  }),
 });
 
 function Wrapper({ children }: { children: ReactNode }) {

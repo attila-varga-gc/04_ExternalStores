@@ -1,4 +1,5 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
+import { skip } from "rxjs";
 import { CommentModel } from "../CommentsModel";
 import { useCommentsModel, CommentsModelProps } from "../useCommentsModel";
 
@@ -6,20 +7,24 @@ const comment = Mocked<CommentModel>({
   id: 42,
 });
 
-it("should test fetching comments from the API", async () => {
+it("should test fetching comments from the API", (done) => {
   const props = Mocked<CommentsModelProps>({
     api: {
-      fetchComments: () => [comment],
+      fetchComments: async () => [comment],
     },
   });
-  const { waitForNextUpdate, result } = renderHook(() =>
-    useCommentsModel(props)
-  );
-  await waitForNextUpdate();
-  expect(result.current.comments[0]).toEqual(comment);
+  const {
+    result: {
+      current: { $subject },
+    },
+  } = renderHook(() => useCommentsModel(props));
+  $subject.pipe(skip(1)).subscribe((res) => {
+    expect(res.comments).toEqual([comment]);
+    done();
+  });
 });
 
-it("should test addLike", async () => {
+it("should test addLike", (done) => {
   comment.likes = 1;
   const props = Mocked<CommentsModelProps>({
     api: {
@@ -27,12 +32,16 @@ it("should test addLike", async () => {
       addLike: jest.fn(),
     },
   });
-  const { waitForNextUpdate, result } = renderHook(() =>
-    useCommentsModel(props)
-  );
-  await waitForNextUpdate();
-  await act(() => result.current.addLike(comment.id));
-  expect(props.api.addLike).toBeCalledTimes(1);
-  expect(props.api.addLike).toBeCalledWith(comment.id);
-  expect(comment.likes).toStrictEqual(2);
+  const {
+    result: {
+      current: { $subject, addLike },
+    },
+  } = renderHook(() => useCommentsModel(props));
+  addLike(comment.id);
+  $subject.pipe(skip(1)).subscribe(() => {
+    expect(props.api.addLike).toBeCalledTimes(1);
+    expect(props.api.addLike).toBeCalledWith(comment.id);
+    expect(comment.likes).toStrictEqual(2);
+    done();
+  });
 });

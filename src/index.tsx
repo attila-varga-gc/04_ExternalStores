@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 
-import React from "react";
+import React, { useContext, useRef } from "react";
 import ReactDom from "react-dom/client";
-import { GlobalScope } from "./model/GlobalScope";
+import { GlobalScope, GlobalScopeContext } from "./model/GlobalScope";
 import { CommentsView } from "./view/comments/CommentsView";
 
 const root = ReactDom.createRoot(
@@ -25,9 +25,23 @@ const api = {
   addLike: async () => void 0,
 };
 
+function RenderCount() {
+  useContext(GlobalScopeContext);
+  const renderCount = useRef(0);
+  renderCount.current += 1;
+  console.log("render");
+  return (
+    <>
+      Render Count: {renderCount.current}
+      <br />
+    </>
+  );
+}
+
 root.render(
   <React.StrictMode>
     <GlobalScope api={api}>
+      <RenderCount />
       <CommentsView />
     </GlobalScope>
   </React.StrictMode>

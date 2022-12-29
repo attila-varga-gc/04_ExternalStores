@@ -12,7 +12,7 @@ export function useModel<Scope, Return extends keyof Scope>(
   const ctx = useContext(context);
   const value = ctx[key] as RxModel<Return, Return>;
   const $subject = value.$subject;
-  const [subscribe, getServerSnapshot] = useMemo(() => {
+  const [subscribe, getSnapshot] = useMemo(() => {
     /* istanbul ignore next */
     const subscribe = (onStoreChange: () => void) => {
       const subscription = $subject.subscribe(onStoreChange);
@@ -20,7 +20,7 @@ export function useModel<Scope, Return extends keyof Scope>(
     };
     return [subscribe, () => $subject.value];
   }, [$subject]);
-  const state = useSyncExternalStore(subscribe, getServerSnapshot);
+  const state = useSyncExternalStore(subscribe, getSnapshot);
   Object.assign(state, value);
   return state;
 }
